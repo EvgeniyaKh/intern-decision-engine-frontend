@@ -27,6 +27,7 @@ In loan_form.dart, when receiving a response from the backend, it's better to ad
 - Request on every change:
 
 The form sends a request to the API every time a field is changed. This could overload the server. Consider adding a button that sends the request by click or implementing a delay before sending the request (debounce).
+In my opinion, this may be a serious shortcoming that may be improved. But perhaps, on the other side, it is a feature of the application that allows the user to quickly receive information about loan options, reacting to any change in data. Therefore, I decided to fix not this shortcoming, but the next one, which is definitely a mistake.
 
 - Incorrect display of data to the user:
 
