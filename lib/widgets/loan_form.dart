@@ -18,10 +18,13 @@ class LoanForm extends StatefulWidget {
   _LoanFormState createState() => _LoanFormState();
 }
 
+List<String> countries = ['Estonia', 'Latvia', 'Lithuania'];
+
 class _LoanFormState extends State<LoanForm> {
   final _formKey = GlobalKey<FormState>();
   final _apiService = ApiService();
   String _nationalId = '';
+  String? _selectedCountry = 'Estonia';
   int _loanAmount = 2500;
   int _loanPeriod = 36;
   int _loanAmountResult = 0;
@@ -33,7 +36,7 @@ class _LoanFormState extends State<LoanForm> {
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       final result = await _apiService.requestLoanDecision(
-          _nationalId, _loanAmount, _loanPeriod);
+          _selectedCountry, _nationalId, _loanAmount, _loanPeriod);
       setState(() {
         int tempAmount = int.parse(result['loanAmount'].toString());
         int tempPeriod = int.parse(result['loanPeriod'].toString());
@@ -71,6 +74,34 @@ class _LoanFormState extends State<LoanForm> {
               key: _formKey,
               child: Column(
                 children: [
+                  DropdownButtonFormField<String>(
+                    value: _selectedCountry,
+                    style: const TextStyle(color: AppColors.textColor),
+                    dropdownColor: AppColors.backgroungColor,
+                    decoration: InputDecoration(
+                      labelText: 'Country of Residence',
+                      labelStyle: TextStyle(color: AppColors.textColor),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.textColor)),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color:
+                                AppColors.textColor), // Белая рамка при фокусе
+                      ),
+                    ),
+                    items: countries.map((String country) {
+                      return DropdownMenuItem<String>(
+                        value: country,
+                        child: Text(country),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedCountry = newValue;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 10),
                   FormField<String>(
                     builder: (state) {
                       return Column(
