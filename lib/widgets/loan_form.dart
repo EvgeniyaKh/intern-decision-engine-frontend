@@ -18,7 +18,7 @@ class LoanForm extends StatefulWidget {
   _LoanFormState createState() => _LoanFormState();
 }
 
-List<String> countries = ['Estonia', 'Latvia', 'Lithuania'];
+List<String> countries = ['Estonia', 'Latvia', 'Lithuania', 'Other'];
 
 class _LoanFormState extends State<LoanForm> {
   final _formKey = GlobalKey<FormState>();

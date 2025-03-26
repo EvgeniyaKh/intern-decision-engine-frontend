@@ -21,7 +21,7 @@ class ApiService {
       Uri.parse('$_baseUrl/loan/decision'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
-        'country': selectedCountry,
+        'userCountry': selectedCountry,
         'personalCode': personalCode,
         'loanAmount': loanAmount,
         'loanPeriod': loanPeriod,
